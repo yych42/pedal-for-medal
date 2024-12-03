@@ -9,28 +9,28 @@
 </script>
 
 <div class="flex min-h-screen flex-col bg-gray-900 text-gray-100">
-	<header class="flex h-16 items-center border-b border-gray-800 px-4 lg:px-6">
-		<div class="container mx-auto flex items-center">
+	<header class="flex items-center border-b border-gray-800 p-4 px-4 lg:px-6">
+		<div class="container mx-auto flex flex-col items-start md:flex-row md:items-center">
 			<a class="flex items-center justify-center" href="/">
 				<Bike class="mr-2 h-8 w-8 text-yellow-500" />
 				<span class="text-xl font-bold">Pedal for Medal</span>
 			</a>
-			<nav class="ml-auto flex gap-4 sm:gap-6">
+			<nav class="flex w-full gap-4 overflow-x-scroll pt-4 sm:gap-6 md:ml-auto md:pt-0">
 				<button
 					on:click={() => scrollToSection('features')}
-					class="text-sm font-medium transition-colors hover:text-yellow-500"
+					class="whitespace-nowrap text-sm font-medium transition-colors hover:text-yellow-500"
 				>
 					Features
 				</button>
 				<button
 					on:click={() => scrollToSection('petition')}
-					class="text-sm font-medium transition-colors hover:text-yellow-500"
+					class="whitespace-nowrap text-sm font-medium transition-colors hover:text-yellow-500"
 				>
 					Sign Petition
 				</button>
 				<button
 					on:click={() => scrollToSection('endorsements')}
-					class="text-sm font-medium transition-colors hover:text-yellow-500"
+					class="whitespace-nowrap text-sm font-medium transition-colors hover:text-yellow-500"
 				>
 					Endorsements
 				</button>
