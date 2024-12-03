@@ -15,7 +15,7 @@
 				<Bike class="mr-2 h-8 w-8 text-yellow-500" />
 				<span class="text-xl font-bold">Pedal for Medal</span>
 			</a>
-			<nav class="flex w-full gap-4 overflow-x-scroll pt-4 sm:gap-6 md:ml-auto md:pt-0">
+			<nav class="flex w-full gap-4 overflow-x-scroll pt-4 sm:gap-6 md:ml-auto md:w-auto md:pt-0">
 				<button
 					on:click={() => scrollToSection('features')}
 					class="whitespace-nowrap text-sm font-medium transition-colors hover:text-yellow-500"
