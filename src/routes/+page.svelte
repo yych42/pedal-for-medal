@@ -204,27 +204,21 @@
 		</section>
 	</main>
 
-	<footer
-		class="flex w-full shrink-0 flex-col items-center gap-2 border-t border-gray-800 px-4 py-6 sm:flex-row md:px-6"
-	>
-		<div class="container mx-auto flex flex-col items-center sm:flex-row">
-			<p class="text-xs text-gray-400">
+	<footer class="flex w-full gap-2 border-t border-gray-800 px-4 py-6 md:px-6">
+		<div
+			class="container mx-auto flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between"
+		>
+			<p class="text-xs text-gray-400 lg:max-w-xl">
 				© 2024 Pedal for Medal Campaign. All rights reserved. Helldivers™ and Helldivers™ 2 are
 				trademarks of Arrowhead Game Studios AB. This campaign is not affiliated with Arrowhead Game
 				Studios.
 			</p>
-			<nav class="flex gap-4 sm:ml-auto sm:gap-6">
+			<nav class="flex space-x-4">
 				<a
 					class="text-xs text-gray-400 underline-offset-4 transition-colors hover:text-gray-100 hover:underline"
 					href="/"
 				>
-					Terms of Service
-				</a>
-				<a
-					class="text-xs text-gray-400 underline-offset-4 transition-colors hover:text-gray-100 hover:underline"
-					href="/"
-				>
-					Privacy
+					Privacy Policy
 				</a>
 			</nav>
 		</div>
