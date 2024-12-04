@@ -26,7 +26,7 @@ export const actions = {
 			return fail(500, { success: false, message: 'Failed to send email' });
 		}
 
-		return { success: true, message: 'Check your email to confirm your support!' };
+		return { success: true, message: 'Check your email to confirm your support! Maybe spam too.' };
 	}
 } satisfies Actions;
 
