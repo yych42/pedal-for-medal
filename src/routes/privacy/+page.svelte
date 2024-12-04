@@ -71,7 +71,7 @@
 			<h2>Contact Us</h2>
 			<p>
 				To exercise any of your rights or for any questions about our privacy practices, you can
-				contact us at privacy@pedalformedal.org.
+				contact us at palest_dour.1m@icloud.com.
 			</p>
 
 			<h2>Updates to This Policy</h2>
