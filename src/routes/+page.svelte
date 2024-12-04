@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { applyAction, enhance } from '$app/forms';
+	import { enhance } from '$app/forms';
 	import { Bike, Rocket, Shield, EarOff, ThumbsUp } from 'lucide-svelte';
 	import type { ActionData } from './$types';
-	import { goto } from '$app/navigation';
 
 	const scrollToSection = (elementId: string) => {
 		const element = document.getElementById(elementId);
@@ -21,19 +20,19 @@
 			</a>
 			<nav class="flex w-full gap-4 overflow-x-scroll pt-4 sm:gap-6 md:ml-auto md:w-auto md:pt-0">
 				<button
-					on:click={() => scrollToSection('features')}
+					onclick={() => scrollToSection('features')}
 					class="whitespace-nowrap text-sm font-medium transition-colors hover:text-yellow-500"
 				>
 					Features
 				</button>
 				<button
-					on:click={() => scrollToSection('petition')}
+					onclick={() => scrollToSection('petition')}
 					class="whitespace-nowrap text-sm font-medium transition-colors hover:text-yellow-500"
 				>
 					Sign Petition
 				</button>
 				<button
-					on:click={() => scrollToSection('endorsements')}
+					onclick={() => scrollToSection('endorsements')}
 					class="whitespace-nowrap text-sm font-medium transition-colors hover:text-yellow-500"
 				>
 					Endorsements
@@ -82,13 +81,13 @@
 					</div>
 					<div class="space-x-4">
 						<button
-							on:click={() => scrollToSection('petition')}
+							onclick={() => scrollToSection('petition')}
 							class="inline-flex h-9 items-center justify-center rounded-md bg-yellow-500 px-4 py-2 text-sm font-medium text-gray-900 shadow transition-colors hover:bg-yellow-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50"
 						>
 							Sign the Petition
 						</button>
 						<button
-							on:click={() => scrollToSection('features')}
+							onclick={() => scrollToSection('features')}
 							class="inline-flex h-9 items-center justify-center rounded-md border border-gray-800 bg-gray-950 px-4 py-2 text-sm font-medium text-gray-50 shadow-sm transition-colors hover:bg-gray-800 hover:text-gray-50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50"
 						>
 							Learn More

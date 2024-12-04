@@ -30,7 +30,7 @@
 						Manufacturers—and <i>you</i>!
 					</p>
 					<button
-						on:click={() => goto('/')}
+						onclick={() => goto('/')}
 						class="inline-flex h-9 items-center justify-center rounded-md bg-yellow-500 px-4 py-2 text-sm font-medium text-gray-900 shadow transition-colors hover:bg-yellow-400"
 					>
 						Return to Base
@@ -46,7 +46,7 @@
 						{data.message || 'Something went wrong with your enlistment. Please try again later.'}
 					</p>
 					<button
-						on:click={() => goto('/')}
+						onclick={() => goto('/')}
 						class="inline-flex h-9 items-center justify-center rounded-md border border-gray-800 bg-gray-950 px-4 py-2 text-sm font-medium text-gray-50 shadow-sm transition-colors hover:bg-gray-800"
 					>
 						Drop Again
