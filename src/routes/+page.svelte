@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { Bike, Rocket, Shield, EarOff, ThumbsUp } from 'lucide-svelte';
+	import { Bike, Rocket, Shield, EarOff, ThumbsUp, AlertCircle, CheckCircle } from 'lucide-svelte';
 	import type { ActionData } from './$types';
+	import Modal from '$lib/components/Modal.svelte';
 
 	const scrollToSection = (elementId: string) => {
 		const element = document.getElementById(elementId);
@@ -154,7 +155,7 @@
 							planets!
 						</p>
 					</div>
-					<div class="w-full max-w-sm space-y-2">
+					<div class="w-full max-w-sm">
 						<form class="flex flex-col space-y-4" method="POST" use:enhance>
 							<input
 								name="email"
@@ -172,14 +173,19 @@
 							</button>
 						</form>
 						{#if form?.success === false}
-							<p class="text-xs text-red-500">{form.message}</p>
+							<Modal>
+								<AlertCircle class="mx-auto mb-4 h-12 w-12 text-red-500" />
+								<p class="text-red-500">{form.message}</p>
+							</Modal>
 						{:else if form?.success}
-							<p class="text-xs text-green-500">{form.message}</p>
-						{:else}
-							<p class="text-xs text-gray-400">
-								By signing, you agree to potentially be drafted into the Helldivers Cycling Corps.
-							</p>
+							<Modal>
+								<CheckCircle class="mx-auto mb-4 h-12 w-12 text-green-500" />
+								<p class="text-green-500">{form.message}</p>
+							</Modal>
 						{/if}
+						<p class="mt-2 text-xs text-gray-400">
+							By signing, you agree to potentially be drafted into the Helldivers Cycling Corps.
+						</p>
 					</div>
 				</div>
 			</div>
