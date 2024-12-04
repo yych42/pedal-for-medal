@@ -174,12 +174,12 @@
 						</form>
 						{#if form?.success === false}
 							<Modal>
-								<AlertCircle class="mx-auto mb-4 h-12 w-12 text-red-500" />
+								<AlertCircle class="mx-auto mb-4 h-10 w-10 text-red-500" />
 								<p class="text-red-500">{form.message}</p>
 							</Modal>
 						{:else if form?.success}
 							<Modal>
-								<CheckCircle class="mx-auto mb-4 h-12 w-12 text-green-500" />
+								<CheckCircle class="mx-auto mb-4 h-10 w-10 text-green-500" />
 								<p class="text-green-500">{form.message}</p>
 							</Modal>
 						{/if}
