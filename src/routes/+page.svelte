@@ -1,11 +1,15 @@
-<!-- routes/+page.svelte -->
 <script lang="ts">
+	import { applyAction, enhance } from '$app/forms';
 	import { Bike, Rocket, Shield, EarOff, ThumbsUp } from 'lucide-svelte';
+	import type { ActionData } from './$types';
+	import { goto } from '$app/navigation';
 
 	const scrollToSection = (elementId: string) => {
 		const element = document.getElementById(elementId);
 		element?.scrollIntoView({ behavior: 'smooth' });
 	};
+
+	let { form }: { form: ActionData } = $props();
 </script>
 
 <div class="flex min-h-screen flex-col bg-gray-900 text-gray-100">
@@ -152,22 +156,31 @@
 						</p>
 					</div>
 					<div class="w-full max-w-sm space-y-2">
-						<form class="flex flex-col space-y-4">
+						<form class="flex flex-col space-y-4" method="POST" use:enhance>
 							<input
+								name="email"
 								class="max-w-lg flex-1 rounded-md border-gray-700 bg-gray-800 p-2 text-gray-100"
 								placeholder="Enter your email"
 								type="email"
+								required
 							/>
 							<button
 								type="submit"
-								class="rounded-md bg-yellow-500 p-2 font-medium text-gray-900 hover:bg-yellow-400"
+								class="rounded-md bg-yellow-500 p-2 font-medium text-gray-900 hover:bg-yellow-400 disabled:pointer-events-none disabled:opacity-50"
+								disabled={form?.success}
 							>
 								Support the Cause
 							</button>
 						</form>
-						<p class="text-xs text-gray-400">
-							By signing, you agree to potentially be drafted into the Helldivers Cycling Corps.
-						</p>
+						{#if form?.success === false}
+							<p class="text-xs text-red-500">{form.message}</p>
+						{:else if form?.success}
+							<p class="text-xs text-green-500">{form.message}</p>
+						{:else}
+							<p class="text-xs text-gray-400">
+								By signing, you agree to potentially be drafted into the Helldivers Cycling Corps.
+							</p>
+						{/if}
 					</div>
 				</div>
 			</div>
