@@ -1,16 +1,21 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { Bike, Rocket, Shield, EarOff, ThumbsUp, AlertCircle, CheckCircle } from 'lucide-svelte';
-	import type { ActionData } from './$types';
+	import type { PageData, ActionData } from './$types';
 	import Modal from '$lib/components/Modal.svelte';
+	import ProgressBar from '$lib/components/ProgressBar.svelte';
 
 	const scrollToSection = (elementId: string) => {
 		const element = document.getElementById(elementId);
 		element?.scrollIntoView({ behavior: 'smooth' });
 	};
 
-	let { form }: { form: ActionData } = $props();
+	let { form, data }: { form: ActionData; data: PageData } = $props();
 </script>
+
+<div class="border-b border-gray-800">
+	<ProgressBar progress={data.progress} total={10000} />
+</div>
 
 <div class="flex min-h-screen flex-col bg-gray-900 text-gray-100">
 	<header class="flex items-center border-b border-gray-800 p-4 px-4 lg:px-6">

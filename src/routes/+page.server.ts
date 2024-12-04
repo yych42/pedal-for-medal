@@ -2,7 +2,12 @@ import type { Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 import { Resend } from 'resend';
-import { provisionToken } from '$lib/server/redis';
+import { provisionToken, getTotalSignatures } from '$lib/server/redis';
+
+export const load = async () => {
+	const progress = await getTotalSignatures();
+	return { progress };
+};
 
 export const actions = {
 	default: async ({ request }) => {

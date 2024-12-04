@@ -35,3 +35,7 @@ export const confirmSignup = async (token: string): Promise<ConfirmSignupResult>
 	await redis.sadd('signedUp', email);
 	return { success: true };
 };
+
+export const getTotalSignatures = async () => {
+	return await redis.scard('signedUp');
+};
