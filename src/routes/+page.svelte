@@ -239,7 +239,7 @@
 			<nav class="flex space-x-4">
 				<a
 					class="text-xs text-gray-400 underline-offset-4 transition-colors hover:text-gray-100 hover:underline"
-					href="/"
+					href="/privacy"
 				>
 					Privacy Policy
 				</a>
