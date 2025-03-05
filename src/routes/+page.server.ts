@@ -1,8 +1,7 @@
 import type { Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
-import { Resend } from 'resend';
-import { provisionToken, getTotalSignatures } from '$lib/server/redis';
+import { addSignature, getTotalSignatures } from '$lib/server/redis';
 
 export const load = async () => {
 	const progress = await getTotalSignatures();
@@ -28,7 +27,7 @@ async function verifyTurnstileToken(token: string) {
 export const actions = {
 	default: async ({ request }) => {
 		const data = await request.formData();
-		const gameId = data.get('gameId') as string;
+		const gameId = (data.get('gameId') as string)?.trim() || 'anonymous';
 		const turnstileToken = data.get('cf-turnstile-response') as string;
 
 		if (!turnstileToken) {
@@ -41,14 +40,13 @@ export const actions = {
 		}
 
 		try {
-			const token = await provisionToken(gameId || 'anonymous');
+			const result = await addSignature(gameId);
+			if (!result.success) {
+				return fail(400, { success: false, message: result.message });
+			}
 			return { success: true, message: 'Thank you for supporting the cause!' };
 		} catch (error) {
 			return fail(500, { success: false, message: 'Failed to register your support' });
 		}
 	}
 } satisfies Actions;
-
-const validateEmail = (email: string) => {
-	return email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
-};
