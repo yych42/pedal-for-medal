@@ -12,19 +12,7 @@
 	};
 
 	let { form, data }: { form: ActionData; data: PageData } = $props();
-
-	onMount(() => {
-		// @ts-ignore - Cloudflare Turnstile types
-		window.turnstile.render('#turnstile', {
-			sitekey: '0x4AAAAAAA_IaOcsV88Cqrmg',
-			theme: 'dark'
-		});
-	});
 </script>
-
-<svelte:head>
-	<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async></script>
-</svelte:head>
 
 <div class="border-b border-gray-800">
 	<ProgressBar progress={data.progress} total={10000} />
@@ -181,7 +169,12 @@
 								placeholder="Enter your game ID (optional)"
 								type="text"
 							/>
-							<div id="turnstile" class="mx-auto"></div>
+							<div
+								id="cf-turnstile"
+								class="mx-auto"
+								data-sitekey="0x4AAAAAAA_IaCuvl6Ar1umE1f9tGEoM53w"
+								data-theme="dark"
+							></div>
 							<button
 								type="submit"
 								class="rounded-md bg-yellow-500 p-2 font-medium text-gray-900 hover:bg-yellow-400 disabled:pointer-events-none disabled:opacity-50"
