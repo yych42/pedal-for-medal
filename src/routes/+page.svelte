@@ -166,14 +166,14 @@
 							<input
 								name="gameId"
 								class="max-w-lg flex-1 rounded-md border-gray-700 bg-gray-800 p-2 text-gray-100"
-								placeholder="Enter your game ID (optional)"
+								placeholder="Enter your Helldiver's ID"
 								type="text"
 							/>
 							<div
-								id="cf-turnstile"
-								class="mx-auto"
-								data-sitekey="0x4AAAAAAA_IaCuvl6Ar1umE1f9tGEoM53w"
+								class="cf-turnstile"
+								data-sitekey="0x4AAAAAAA_IaOcsV88Cqrmg"
 								data-theme="dark"
+								data-size="flexible"
 							></div>
 							<button
 								type="submit"
