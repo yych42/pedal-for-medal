@@ -12,6 +12,16 @@
 	};
 
 	let { form, data }: { form: ActionData; data: PageData } = $props();
+
+	function onSubmitSuccess() {
+		if (form?.success) {
+			goto('/confirm');
+		}
+	}
+
+	$effect(() => {
+		onSubmitSuccess();
+	});
 </script>
 
 <div class="border-b border-gray-800">
@@ -162,17 +172,7 @@
 						</p>
 					</div>
 					<div class="w-full max-w-sm">
-						<form
-							class="flex flex-col space-y-4"
-							method="POST"
-							use:enhance={() => {
-								return async ({ result }) => {
-									if (result.type === 'success') {
-										goto('/confirm');
-									}
-								};
-							}}
-						>
+						<form class="flex flex-col space-y-4" method="POST" use:enhance>
 							<input
 								name="gameId"
 								class="max-w-lg flex-1 rounded-md border-gray-700 bg-gray-800 p-2 text-gray-100"
