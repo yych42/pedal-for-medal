@@ -7,9 +7,9 @@ const redis = new Redis({
 	token: env.REDIS_TOKEN
 });
 
-export const provisionToken = async (email: string) => {
+export const provisionToken = async (gameId: string) => {
 	const token = nanoid();
-	await redis.set(token, email, { ex: 60 * 60 * 24 });
+	await redis.set(token, gameId, { ex: 60 * 60 * 24 });
 	return token;
 };
 
@@ -20,22 +20,30 @@ interface ConfirmSignupResult {
 
 export const confirmSignup = async (token: string): Promise<ConfirmSignupResult> => {
 	// Check if the token is valid
-	const email = await redis.get(token);
-	if (!email) {
+	const gameId = await redis.get(token);
+	if (!gameId) {
 		return { success: false, message: 'Invalid token' };
 	}
 
-	// Check if the email is already signed up
-	const signedUp = await redis.sismember('signedUp', email);
-	if (signedUp) {
-		return { success: false, message: 'Email already signed up' };
+	// Check if this game ID has already signed up (skip for anonymous users)
+	if (gameId !== 'anonymous') {
+		const signedUp = await redis.sismember('signedUp', gameId);
+		if (signedUp) {
+			return { success: false, message: 'You have already signed up' };
+		}
 	}
 
-	// Add the email to the signed up set
-	await redis.sadd('signedUp', email);
+	// Add the game ID to the signed up set (skip for anonymous users)
+	if (gameId !== 'anonymous') {
+		await redis.sadd('signedUp', gameId);
+	} else {
+		// For anonymous users, add a unique identifier to the set
+		await redis.sadd('signedUp', `anon_${nanoid()}`);
+	}
+
 	return { success: true };
 };
 
-export const getTotalSignatures = async () => {
+export const getTotalSignatures = async (): Promise<number> => {
 	return await redis.scard('signedUp');
 };

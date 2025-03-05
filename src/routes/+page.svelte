@@ -4,6 +4,7 @@
 	import type { PageData, ActionData } from './$types';
 	import Modal from '$lib/components/Modal.svelte';
 	import ProgressBar from '$lib/components/ProgressBar.svelte';
+	import { onMount } from 'svelte';
 
 	const scrollToSection = (elementId: string) => {
 		const element = document.getElementById(elementId);
@@ -11,7 +12,19 @@
 	};
 
 	let { form, data }: { form: ActionData; data: PageData } = $props();
+
+	onMount(() => {
+		// @ts-ignore - Cloudflare Turnstile types
+		window.turnstile.render('#turnstile', {
+			sitekey: '0x4AAAAAAA_IaOcsV88Cqrmg',
+			theme: 'dark'
+		});
+	});
 </script>
+
+<svelte:head>
+	<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async></script>
+</svelte:head>
 
 <div class="border-b border-gray-800">
 	<ProgressBar progress={data.progress} total={10000} />
@@ -163,12 +176,12 @@
 					<div class="w-full max-w-sm">
 						<form class="flex flex-col space-y-4" method="POST" use:enhance>
 							<input
-								name="email"
+								name="gameId"
 								class="max-w-lg flex-1 rounded-md border-gray-700 bg-gray-800 p-2 text-gray-100"
-								placeholder="Enter your email"
-								type="email"
-								required
+								placeholder="Enter your game ID (optional)"
+								type="text"
 							/>
+							<div id="turnstile" class="mx-auto"></div>
 							<button
 								type="submit"
 								class="rounded-md bg-yellow-500 p-2 font-medium text-gray-900 hover:bg-yellow-400 disabled:pointer-events-none disabled:opacity-50"

@@ -9,29 +9,43 @@ export const load = async () => {
 	return { progress };
 };
 
+async function verifyTurnstileToken(token: string) {
+	const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			secret: env.TURNSTILE_SECRET_KEY,
+			response: token
+		})
+	});
+
+	const data = await response.json();
+	return data.success;
+}
+
 export const actions = {
 	default: async ({ request }) => {
 		const data = await request.formData();
-		const email = data.get('email') as string;
+		const gameId = data.get('gameId') as string;
+		const turnstileToken = data.get('cf-turnstile-response') as string;
 
-		if (!validateEmail(email)) {
-			return fail(400, { success: false, message: 'Invalid email' });
+		if (!turnstileToken) {
+			return fail(400, { success: false, message: 'Please complete the verification challenge' });
+		}
+
+		const isHuman = await verifyTurnstileToken(turnstileToken);
+		if (!isHuman) {
+			return fail(400, { success: false, message: 'Verification failed. Please try again.' });
 		}
 
 		try {
-			const resend = new Resend(env.RESEND_API_KEY);
-			const token = await provisionToken(email);
-			await resend.emails.send({
-				from: 'vote@pedalformedal.org',
-				to: email,
-				subject: 'Confirm your Pedal for Medal petition',
-				text: `Sign the petition at https://pedalformedal.org/confirm?token=${token}`
-			});
+			const token = await provisionToken(gameId || 'anonymous');
+			return { success: true, message: 'Thank you for supporting the cause!' };
 		} catch (error) {
-			return fail(500, { success: false, message: 'Failed to send email' });
+			return fail(500, { success: false, message: 'Failed to register your support' });
 		}
-
-		return { success: true, message: 'Check your email to confirm your support! Maybe spam too.' };
 	}
 } satisfies Actions;
 
