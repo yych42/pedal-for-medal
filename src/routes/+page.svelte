@@ -4,7 +4,7 @@
 	import type { PageData, ActionData } from './$types';
 	import Modal from '$lib/components/Modal.svelte';
 	import ProgressBar from '$lib/components/ProgressBar.svelte';
-	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 
 	const scrollToSection = (elementId: string) => {
 		const element = document.getElementById(elementId);
@@ -162,7 +162,17 @@
 						</p>
 					</div>
 					<div class="w-full max-w-sm">
-						<form class="flex flex-col space-y-4" method="POST" use:enhance>
+						<form
+							class="flex flex-col space-y-4"
+							method="POST"
+							use:enhance={() => {
+								return async ({ result }) => {
+									if (result.type === 'success') {
+										goto('/confirm');
+									}
+								};
+							}}
+						>
 							<input
 								name="gameId"
 								class="max-w-lg flex-1 rounded-md border-gray-700 bg-gray-800 p-2 text-gray-100"
@@ -187,11 +197,6 @@
 							<Modal>
 								<AlertCircle class="mx-auto mb-4 h-10 w-10 text-red-500" />
 								<p class="text-red-500">{form.message}</p>
-							</Modal>
-						{:else if form?.success}
-							<Modal>
-								<CheckCircle class="mx-auto mb-4 h-10 w-10 text-green-500" />
-								<p class="text-green-500">{form.message}</p>
 							</Modal>
 						{/if}
 						<p class="mt-2 text-xs text-gray-400">
